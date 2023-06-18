@@ -1,0 +1,91 @@
+﻿@{
+    ViewBag.Title = "Product";
+}
+@model List<BeautyParlor.Models.Product>
+
+@functions {
+    string TruncateString(string input, int maxLength)
+    {
+        if (input.Length <= maxLength)
+            return input;
+
+        return input.Substring(0, maxLength - 3) + "...";
+    }
+}
+
+<br />
+
+<div class="container">
+    <hr />
+    <center><h4>Products</h4></center>
+    <hr />
+
+    <div class="row">
+        @*<div class="col-md-12">
+            <div class="input-group">
+                <input type="text" id="searchInput" class="form-control" placeholder="Search products...">
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="button" id="searchButton">Search</button>
+                </div>
+            </div>
+        </div>*@
+    </div>
+
+    <br />
+
+    <table id="productTable" class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Product Link</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in Model)
+            {
+                <tr>
+                    <td data-toggle="popover" data-content="@product.Name">@TruncateString(product.Name, 40)</td>
+                    <td data-toggle="popover" data-content="@product.Description">@TruncateString(product.Description, 40)</td>
+                    <td><a href="@product.ProductLink" target="_blank">Product</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#productTable').DataTable();
+
+        // Initialize popover
+        $('[data-toggle="popover"]').popover({
+            placement: 'top',
+            trigger: 'hover'
+        });
+
+        // Shorten the cell content and add ellipsis
+        $('.table td').each(function () {
+            var content = $(this).text();
+            var maxLength = 40; // Maximum characters to display
+            if (content.length > maxLength) {
+                var shortContent = content.substr(0, maxLength - 3) + '...';
+                $(this).text(shortContent);
+            }
+        });
+
+        // Search functionality
+        $('#searchButton').click(function () {
+            var searchValue = $('#searchInput').val().toLowerCase();
+            $('.table td').each(function () {
+                var cellText = $(this).text().toLowerCase();
+                if (cellText.includes(searchValue)) {
+                    $(this).parent('tr').show();
+                } else {
+                    $(this).parent('tr').hide();
+                }
+            });
+        });
+    });
+</script>

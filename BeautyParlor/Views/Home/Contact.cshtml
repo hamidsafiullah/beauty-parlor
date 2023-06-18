@@ -1,0 +1,51 @@
+﻿@{
+    ViewBag.Title = "Contact";
+}
+
+@model BeautyParlor.Models.ContactViewModel
+
+<main aria-labelledby="title">
+    <br />
+    <hr />
+    <center><h2>Contact Us</h2></center>
+    <hr />
+    <h5>@ViewBag.Message</h5>
+    @using (Html.BeginForm("SubmitMessage", "Home", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Name)
+            @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Name)
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Email)
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Email)
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Message)
+            @Html.TextAreaFor(m => m.Message, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Message)
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="Submit" class="btn btn-primary" />
+        </div>
+    }
+
+    <address>
+        Beauty<br />
+        Doha, Qata<br />
+        <abbr title="Phone">P:</abbr>
+        974.255.255
+    </address>
+
+    <address>
+        <strong>Support:</strong>   <a href="mailto:beautyparlor@mail.com">Support@example.com</a><br />
+        <strong>Marketing:</strong> <a href="mailto:beautyparlor@example.com">beautyparlor@example.com</a>
+    </address>
+</main>

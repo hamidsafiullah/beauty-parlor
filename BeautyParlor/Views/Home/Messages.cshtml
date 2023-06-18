@@ -1,0 +1,32 @@
+﻿
+@{
+    ViewBag.Title = "Messages";
+}
+<br />
+<hr />
+<h2>Messages</h2>
+<hr />
+
+@model List<BeautyParlor.Models.Message>
+
+<h5>Messages from clients</h5>
+<table class="table">
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Message</th>
+        <th>Created At</th>
+    </tr>
+
+    @foreach (var message in Model)
+    {
+        <tr>
+            <td>@message.Id</td>
+            <td>@message.Name</td>
+            <td>@message.Email</td>
+            <td>@message.MessageText</td>
+            <td>@message.CreatedAt</td>
+        </tr>
+    }
+</table>
